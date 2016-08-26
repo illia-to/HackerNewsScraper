@@ -1,0 +1,16 @@
+{
+  "name": "Hacker-New-Scraper",
+  "version": "0.1.0",
+  "description": "Hacker News Scraper",
+  "keywords": [],
+   "author": [
+    {
+      "name": "Illia T."
+    }
+  ],
+  "dependencies": {
+    "commander": "2.6.0",
+    "node-horseman": "2.7.0"
+  },
+  "license": "MIT"
+}
