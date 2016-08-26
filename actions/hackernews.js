@@ -1,4 +1,6 @@
 'use strict'
+//TODO: can you make this function return a Promise ? 
+//TODO: can you use better names for page and count?
 function getNextPage (phantomInstance, page, count, callback) {
   if (!page || typeof page !== 'number') {
     throw 'You must specify a url to gather data'
@@ -17,6 +19,7 @@ function getNextPage (phantomInstance, page, count, callback) {
       })
       // Interact with the page. This code is run in the browser.
       .evaluate(function () {
+        //TODO: this function is too long. Can you split it to make it more readable?
         // Post output arrau
         var result = []
         // Find table container
@@ -26,6 +29,7 @@ function getNextPage (phantomInstance, page, count, callback) {
           var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
           return regexp.test(uri) ? uri : 'URI is not valid: ' + uri
         }
+        //TODO: why do you mix null and "Not valid: %s""? 
         // Points, comments, rank validation
         var isPositiveNumber = function (num) {
           return num > 0 ? num : null
@@ -40,6 +44,7 @@ function getNextPage (phantomInstance, page, count, callback) {
           var id = table.querySelectorAll('.athing')
           var subtext = table.querySelectorAll('.subtext')
           var titleElemnt = Array.prototype.slice.call(table.querySelectorAll('.title'))
+          //TODO: Can you use element.next() and avoid checking for odd / even rows?
           var titleList = titleElemnt.filter(function (elem, ind) {
             return ind % 2 !== 0
           })
@@ -73,10 +78,13 @@ function getNextPage (phantomInstance, page, count, callback) {
 module.exports = function (phantomInstance, count, callback) {
   var allPosts = []
   return getNextPage(phantomInstance, 1, count, function (posts, page) {
-    console.log(page)
-    console.log(posts)
+    //TODO: remove these
+    // console.log(page)
+    // console.log(posts)
 
     allPosts = allPosts.concat(posts)
+
+    //TODO: what happen if count <= 30? bad bug!
     if (page > count) {
       callback(allPosts)
     }
